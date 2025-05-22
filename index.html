@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coité Pet Hotel - Calculadora de Hospedagem</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #007b5e;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, input[type=number] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    button {
+      width: 48%;
+      padding: 10px;
+      margin-top: 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+    }
+    #calcularBtn {
+      background-color: #007b5e;
+      float: left;
+    }
+    #limparBtn {
+      background-color: #999;
+      float: right;
+    }
+    #resultado {
+      clear: both;
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: #007b5e;
+    }
+  </style>
+</head>
+<body>
+  <h1>Coité Pet Hotel</h1>
+
+  <label for="porte">Porte do Animal:</label>
+  <select id="porte">
+    <option value="pequeno">Pequeno/Médio</option>
+    <option value="grande">Grande/Gigante</option>
+  </select>
+
+  <label for="diasSemana">Dias de Semana:</label>
+  <input type="number" id="diasSemana" min="0" value="0" />
+
+  <label for="diasFds">Dias de Fim de Semana / Feriado:</label>
+  <input type="number" id="diasFds" min="0" value="0" />
+
+  <button id="calcularBtn">Calcular</button>
+  <button id="limparBtn">Limpar</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    const porteEl = document.getElementById('porte');
+    const diasSemanaEl = document.getElementById('diasSemana');
+    const diasFdsEl = document.getElementById('diasFds');
+    const calcularBtn = document.getElementById('calcularBtn');
+    const limparBtn = document.getElementById('limparBtn');
+    const resultadoEl = document.getElementById('resultado');
+
+    function calcular() {
+      const porte = porteEl.value;
+      const diasSemana = Number(diasSemanaEl.value);
+      const diasFds = Number(diasFdsEl.value);
+
+      if (diasSemana < 0 || diasFds < 0) {
+        resultadoEl.textContent = "Informe números válidos de dias.";
+        return;
+      }
+
+      let valorTotal = 0;
+
+      if (porte === 'pequeno') {
+        valorTotal = diasSemana * 60 + diasFds * 65;
+      } else {
+        valorTotal = diasSemana * 70 + diasFds * 75;
+      }
+
+      resultadoEl.textContent = "Valor Total: R$ " + valorTotal.toFixed(2);
+    }
+
+    function limpar() {
+      porteEl.value = 'pequeno';
+      diasSemanaEl.value = 0;
+      diasFdsEl.value = 0;
+      resultadoEl.textContent = "";
+    }
+
+    calcularBtn.addEventListener('click', calcular);
+    limparBtn.addEventListener('click', limpar);
+  </script>
+</body>
+</html>
